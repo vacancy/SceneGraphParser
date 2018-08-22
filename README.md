@@ -6,6 +6,9 @@ Different from the Stanford version, this parser is written purely by Python. It
 
 > **Highlight: This project is still being developed. ALL APIs are subject to ANY change.**
 
+> **Note**: As you may notice, the parsing is done by a set of human-written rules on the parsing tree. Thus, we need help from everyone on collecting failure/corner cases of the current program.
+> Any kind of reports or help should be more than welcome.
+
 ## Example
 
 The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy yourself by:
