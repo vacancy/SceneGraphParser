@@ -30,6 +30,8 @@ def main():
     demo('A woman playing the piano in the room.')
     demo('A piano is played by a woman in the room.')
     demo('A woman is playing the space craft at NASA.')
+    demo('A woman next to a piano.')
+    demo('A woman standing next to a piano.')
     demo('The woman is a pianist.')
     demo('A giraffe grazing a tree in the wildness with other wildlife.')
     demo('Cow standing on sidewalk in city area near shops.')

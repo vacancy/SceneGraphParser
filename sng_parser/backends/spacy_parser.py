@@ -135,6 +135,20 @@ class SpacyParser(object):
                         'object': entity.root.i,
                         'relation': entity.root.head.text
                     }
+                # E.g., A [piano] next to a [woman].
+                elif entity.root.head.head.dep_ in ('amod', 'advmod') and entity.root.head.head.head.pos_ == 'NOUN':
+                    relation = {
+                        'subject': entity.root.head.head.head.i,
+                        'object': entity.root.i,
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text
+                    }
+                # E.g., A [woman] standing next to a [piano].
+                elif entity.root.head.head.dep_ in ('amod', 'advmod') and entity.root.head.head.head.pos_ == 'VERB' and entity.root.head.head.head.i in relation_subj:
+                    relation = {
+                        'subject': relation_subj[entity.root.head.head.head.i],
+                        'object': entity.root.i,
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text
+                    }
                 # E.g., A [woman] is playing the [piano] in the room
                 elif entity.root.head.head.dep_== 'VERB' and entity.root.head.head.i in relation_subj:
                     relation = {
