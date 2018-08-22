@@ -1,6 +1,6 @@
 # SceneGraphParser
 
-SceneGraphParser (`sng_parser`) is a python toolkit for parsing sentences (in natural language) into scene graphs based on the dependency parsing. This project is inspired by the [Stanford Scene Graph Parser](https://nlp.stanford.edu/software/scenegraph-parser.shtml).
+SceneGraphParser (`sng_parser`) is a python toolkit for parsing sentences (in natural language) into scene graphs (as symbolic representation) based on the dependency parsing. This project is inspired by the [Stanford Scene Graph Parser](https://nlp.stanford.edu/software/scenegraph-parser.shtml).
 
 Different from the Stanford version, this parser is written purely by Python. It has an easy-to-use user interface and an easy-to-configure design.  It parse sentences into graphs where the nodes are nouns (with modifiers such as determinants or adjectives) and the edges are relations between nouns. Please see the example section for details.
 
