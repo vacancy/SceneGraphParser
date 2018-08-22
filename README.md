@@ -2,13 +2,13 @@
 
 SceneGraphParser (`sng_parser`) is a python toolkit for parsing sentences (in natural language) into scene graphs (as symbolic representation) based on the dependency parsing. This project is inspired by the [Stanford Scene Graph Parser](https://nlp.stanford.edu/software/scenegraph-parser.shtml).
 
-Different from the Stanford version, this parser is written purely by Python. It has an easy-to-use user interface and an easy-to-configure design.  It parse sentences into graphs where the nodes are nouns (with modifiers such as determinants or adjectives) and the edges are relations between nouns. Please see the example section for details.
+Different from the Stanford version, this parser is written purely by Python. It has an easy-to-use user interface and an easy-to-configure design.  It parses sentences into graphs where the nodes are nouns (with modifiers such as determinants or adjectives) and the edges are relations between nouns. Please see the example section for details.
 
 > **Highlight: This project is still being developed. ALL APIs are subject to ANY change.**
 
 ## Example
 
-The most easy way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy your self by:
+The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy yourself by:
 
 ```bash
 pip install spacy
@@ -76,8 +76,8 @@ Alternatively, you can configure your own parser:
 ```
 
 ## Specification of the graph
-We use the pure pythonic `dict` and `list` to represents a graph. Although this flexibility may bring coding issues, we choose this representation because:
-  1. currently, the tool is still being developed, these APIs are subject to any change.
+We use the pure pythonic `dict` and `list` to represent a graph. Although this flexibility may bring some unwanted issues, we prefer this representation because:
+  1. currently, the tool is still being developed, these APIs are subject to change.
   2. this makes the tool easy to be integrated into any python-based projects. You don't need to care about pickling/unpickling the results. Use it anywhere in your code!
 
 The generated scene graphs match the following spec:
