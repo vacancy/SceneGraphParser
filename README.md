@@ -76,8 +76,8 @@ Alternatively, you can configure your own parser:
 ```
 
 ## Specification of the graph
-We use the pure pythonic `dict` and `list` to represents a graph. Although this flexibility may bring coding issues, we choose this representation because:
-  1. currently, the tool is still being developed, these APIs are subject to any change.
+We use the pure pythonic `dict` and `list` to represent a graph. Although this flexibility may bring some unwanted issues, we prefer this representation because:
+  1. currently, the tool is still being developed, these APIs are subject to change.
   2. this makes the tool easy to be integrated into any python-based projects. You don't need to care about pickling/unpickling the results. Use it anywhere in your code!
 
 The generated scene graphs match the following spec:
