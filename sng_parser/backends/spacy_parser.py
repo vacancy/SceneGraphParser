@@ -78,6 +78,9 @@ class SpacyParser(object):
                     ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
                 elif x.dep_ == 'amod':
                     ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                elif x.dep_ == 'compound':
+                    ent['head'] = x.text + ' ' + ent['head']
+                    ent['lemma_head'] = x.lemma_ + ' ' + ent['head']
 
             entities.append(ent)
 

@@ -29,6 +29,7 @@ def main():
     demo('A woman is playing the piano in the room.')
     demo('A woman playing the piano in the room.')
     demo('A piano is played by a woman in the room.')
+    demo('A woman is playing the space craft at NASA.')
 
 if __name__ == '__main__':
     main()
