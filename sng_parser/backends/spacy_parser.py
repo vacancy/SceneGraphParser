@@ -105,9 +105,9 @@ class SpacyParser(object):
             # E.g., A woman is playing the piano. 
             if entity.root.dep_ == 'dobj' and entity.root.head.i in relation_subj:
                 relation = {
-                    'subj': relation_subj[entity.root.head.i],
-                    'obj': entity.root.i,
-                    'rel': entity.root.head.text
+                    'subject': relation_subj[entity.root.head.i],
+                    'object': entity.root.i,
+                    'relation': entity.root.head.text
                 }
             elif entity.root.dep_ == 'pobj':
                 # E.g., The piano is played [by] a [woman].
@@ -116,33 +116,33 @@ class SpacyParser(object):
                 # E.g., A [piano] in the [room].
                 elif entity.root.head.head.pos_ == 'NOUN':
                     relation = {
-                        'subj': entity.root.head.head.i,
-                        'obj': entity.root.i,
-                        'rel': entity.root.head.text
+                        'subject': entity.root.head.head.i,
+                        'object': entity.root.i,
+                        'relation': entity.root.head.text
                     }
                 # E.g., A [woman] is playing the piano in the [room].
                 # Note that room.head.head == playing.
                 elif entity.root.head.head.pos_ == 'VERB' and entity.root.head.head.i in relation_subj:
                     relation = {
-                        'subj': relation_subj[entity.root.head.head.i],
-                        'obj': entity.root.i,
-                        'rel': entity.root.head.text
+                        'subject': relation_subj[entity.root.head.head.i],
+                        'object': entity.root.i,
+                        'relation': entity.root.head.text
                     }
             # E.g., The [piano] is played by a [woman]
             elif entity.root.dep_ == 'nsubjpass' and entity.root.head.i in relation_subj:
                 # Here, we reverse the passive phrase. I.e., subjpass -> obj and objpass -> subj.
                 relation = {
-                    'subj': relation_subj[entity.root.head.i],
-                    'obj': entity.root.i,
-                    'rel': entity.root.head.text
+                    'subject': relation_subj[entity.root.head.i],
+                    'object': entity.root.i,
+                    'relation': entity.root.head.text
                 }
 
             if relation is not None:
                 # Use a helper function to map the subj/obj represented by the position
                 # back to one of the entity nodes.
-                relation['subj'] = self.__locate_noun(doc.noun_chunks, relation['subj'])
-                relation['obj'] = self.__locate_noun(doc.noun_chunks, relation['obj'])
-                if relation['subj'] != None and relation['obj'] != None:
+                relation['subject'] = self.__locate_noun(doc.noun_chunks, relation['subject'])
+                relation['object'] = self.__locate_noun(doc.noun_chunks, relation['object'])
+                if relation['subject'] != None and relation['object'] != None:
                     relations.append(relation)
         
         return {'entities': entities, 'relations': relations}

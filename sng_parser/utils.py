@@ -39,9 +39,9 @@ def tprint(graph, file=None, show_entities=True, show_relations=True):
         entities = graph['entities']
         relations_data = [
             [
-                entities[rel['subj']]['head'].lower(),
-                rel['rel'].lower(),
-                entities[rel['obj']]['head'].lower()
+                entities[rel['subject']]['head'].lower(),
+                rel['relation'].lower(),
+                entities[rel['object']]['head'].lower()
             ]
             for rel in graph['relations']
         ]
