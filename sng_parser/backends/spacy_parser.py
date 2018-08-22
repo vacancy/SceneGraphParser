@@ -117,6 +117,17 @@ class SpacyParser(object):
                 # E.g., The piano is played [by] a [woman].
                 if entity.root.head.dep_ == 'agent':
                     pass
+                # E.g., A [woman] is playing the piano in the [room]. Note that room.head.head == playing.
+                # E.g., A [woman] playing the piano in the [room].
+                elif (
+                        entity.root.head.head.pos_ == 'VERB' or 
+                        entity.root.head.head.dep_ == 'acl'
+                ) and entity.root.head.head.i in relation_subj:
+                    relation = {
+                        'subject': relation_subj[entity.root.head.head.i],
+                        'object': entity.root.i,
+                        'relation': entity.root.head.text
+                    }
                 # E.g., A [piano] in the [room].
                 elif entity.root.head.head.pos_ == 'NOUN':
                     relation = {
@@ -124,15 +135,15 @@ class SpacyParser(object):
                         'object': entity.root.i,
                         'relation': entity.root.head.text
                     }
-                # E.g., A [woman] is playing the piano in the [room].
-                # Note that room.head.head == playing.
-                elif entity.root.head.head.pos_ == 'VERB' and entity.root.head.head.i in relation_subj:
+                # E.g., A [woman] is playing the [piano] in the room
+                elif entity.root.head.head.dep_== 'VERB' and entity.root.head.head.i in relation_subj:
                     relation = {
                         'subject': relation_subj[entity.root.head.head.i],
                         'object': entity.root.i,
                         'relation': entity.root.head.text
                     }
-            # E.g., The [piano] is played by a [woman]
+
+            # E.g., The [piano] is played by a [woman].
             elif entity.root.dep_ == 'nsubjpass' and entity.root.head.i in relation_subj:
                 # Here, we reverse the passive phrase. I.e., subjpass -> obj and objpass -> subj.
                 relation = {

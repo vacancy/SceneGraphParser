@@ -31,6 +31,8 @@ def main():
     demo('A piano is played by a woman in the room.')
     demo('A woman is playing the space craft at NASA.')
     demo('The woman is a pianist.')
+    demo('A giraffe grazing a tree in the wildness with other wildlife.')
+    demo('Cow standing on sidewalk in city area near shops.')
 
 if __name__ == '__main__':
     main()
