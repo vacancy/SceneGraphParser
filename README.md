@@ -4,6 +4,8 @@ SceneGraphParser (`sng_parser`) is a python toolkit for parsing sentences (in na
 
 Different from the Stanford version, this parser is written purely by Python. It has an easy-to-use user interface and an easy-to-configure design.  It parse sentences into graphs where the nodes are nouns (with modifiers such as determinants or adjectives) and the edges are relations between nouns. Please see the example section for details.
 
+> **Highlight: This project is still being developed. ALL APIs are subject to ANY change.**
+
 ## Example
 
 The most easy way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy your self by:
