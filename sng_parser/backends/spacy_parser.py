@@ -22,14 +22,23 @@ class SpacyParser(object):
 
     __identifier__ = 'spacy'
 
-    def __init__(self):
+    def __init__(self, model='en'):
+        """
+        Args:
+            model (str): a spec for the spaCy model. (default: en). Please refer to the
+            official website of spaCy for a complete list of the available models.
+            This option is useful if you are dealing with languages other than English.
+        """
+
+        self.model = model
+
         try:
             import spacy
         except ImportError as e:
             raise ImportError('Spacy backend requires the spaCy library. Install spaCy via pip first.') from e
 
         try:
-            self.nlp = spacy.load('en')
+            self.nlp = spacy.load(model)
         except OSError as e:
             raise ImportError('Unable to load the English model. Run `python -m spacy download en` first.') from e
 
@@ -138,7 +147,7 @@ class SpacyParser(object):
         
         return {'entities': entities, 'relations': relations}
 
-    @staicmethod
+    @staticmethod
     def __locate_noun(chunks, i):
         for j, c in enumerate(chunks):
             if c.start <= i < c.end:
