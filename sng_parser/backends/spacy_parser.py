@@ -105,8 +105,9 @@ class SpacyParser(object):
             # Again, the subjects and the objects are represented by their position.
             relation = None
 
-            # E.g., A woman is playing the piano. 
-            if entity.root.dep_ == 'dobj' and entity.root.head.i in relation_subj:
+            # E.g., A woman is [playing] the [piano]. 
+            # E.g., The woman [is] a [pianist].
+            if entity.root.dep_ in ('dobj', 'attr') and entity.root.head.i in relation_subj:
                 relation = {
                     'subject': relation_subj[entity.root.head.i],
                     'object': entity.root.i,
