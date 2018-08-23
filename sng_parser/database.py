@@ -27,7 +27,6 @@ def load_list(filename):
 
 
 def is_phrasal_verb(verb):
-    print(verb, verb in load_list('phrasal-verbs.txt'))
     return verb in load_list('phrasal-verbs.txt')
 
 
