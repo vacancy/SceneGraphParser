@@ -9,6 +9,7 @@
 # Distributed under terms of the MIT license.
 # https://github.com/vacancy/SceneGraphParser
 
+import sng_parser.database as database
 from sng_parser.parser import Parser
 
 __all__ = ['SpacyParser']
@@ -87,6 +88,11 @@ class SpacyParser(object):
                     ent['head'] = x.text + ' ' + ent['head']
                     ent['lemma_head'] = x.lemma_ + ' ' + ent['head']
 
+            if database.is_scene_noun(ent['lemma_head']):
+                ent['type'] = 'scene'
+            else:
+                ent['type'] = 'unknown'
+
             entities.append(ent)
             entity_chunks.append(entity)
 
@@ -117,12 +123,25 @@ class SpacyParser(object):
                 relation = {
                     'subject': relation_subj[entity.root.head.i],
                     'object': entity.root.i,
-                    'relation': entity.root.head.text
+                    'relation': entity.root.head.text,
+                    'lemma_relation': entity.root.head.lemma_
                 }
             elif entity.root.dep_ == 'pobj':
                 # E.g., The piano is played [by] a [woman].
                 if entity.root.head.dep_ == 'agent':
                     pass
+                # E.g., A [woman] is playing with the piano in the [room].
+                elif (
+                        entity.root.head.head.pos_ == 'VERB' and
+                        entity.root.head.head.i + 1 == entity.root.head.i and
+                        database.is_phrasal_verb(entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_)
+                ) and entity.root.head.head.i in relation_subj:
+                    relation = {
+                        'subject': relation_subj[entity.root.head.head.i],
+                        'object': entity.root.i,
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text,
+                        'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
+                    }
                 # E.g., A [woman] is playing the piano in the [room]. Note that room.head.head == playing.
                 # E.g., A [woman] playing the piano in the [room].
                 elif (
@@ -132,35 +151,40 @@ class SpacyParser(object):
                     relation = {
                         'subject': relation_subj[entity.root.head.head.i],
                         'object': entity.root.i,
-                        'relation': entity.root.head.text
+                        'relation': entity.root.head.text,
+                        'lemma_relation': entity.root.head.lemma_
                     }
                 # E.g., A [piano] in the [room].
                 elif entity.root.head.head.pos_ == 'NOUN':
                     relation = {
                         'subject': entity.root.head.head.i,
                         'object': entity.root.i,
-                        'relation': entity.root.head.text
+                        'relation': entity.root.head.text,
+                        'lemma_relation': entity.root.head.lemma_
                     }
                 # E.g., A [piano] next to a [woman].
                 elif entity.root.head.head.dep_ in ('amod', 'advmod') and entity.root.head.head.head.pos_ == 'NOUN':
                     relation = {
                         'subject': entity.root.head.head.head.i,
                         'object': entity.root.i,
-                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text,
+                        'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
                     }
                 # E.g., A [woman] standing next to a [piano].
                 elif entity.root.head.head.dep_ in ('amod', 'advmod') and entity.root.head.head.head.pos_ == 'VERB' and entity.root.head.head.head.i in relation_subj:
                     relation = {
                         'subject': relation_subj[entity.root.head.head.head.i],
                         'object': entity.root.i,
-                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text,
+                        'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
                     }
                 # E.g., A [woman] is playing the [piano] in the room
                 elif entity.root.head.head.dep_== 'VERB' and entity.root.head.head.i in relation_subj:
                     relation = {
                         'subject': relation_subj[entity.root.head.head.i],
                         'object': entity.root.i,
-                        'relation': entity.root.head.text
+                        'relation': entity.root.head.text,
+                        'lemma_relation': entity.root.head.lemma_
                     }
 
             # E.g., The [piano] is played by a [woman].
@@ -169,7 +193,8 @@ class SpacyParser(object):
                 relation = {
                     'subject': relation_subj[entity.root.head.i],
                     'object': entity.root.i,
-                    'relation': entity.root.head.text
+                    'relation': entity.root.head.text,
+                    'lemma_relation': entity.root.head.lemma_
                 }
 
             if relation is not None:
