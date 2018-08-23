@@ -61,7 +61,12 @@ class SpacyParser(object):
 
         # Step 1: determine the entities.
         entities = list()
+        entity_chunks = list()
         for entity in doc.noun_chunks:
+            # Ignore pronouns such as "it".
+            if entity.root.lemma_ == '-PRON-':
+                continue
+
             ent = dict(
                 span=entity.text,
                 lemma_span=entity.lemma_,
@@ -83,6 +88,7 @@ class SpacyParser(object):
                     ent['lemma_head'] = x.lemma_ + ' ' + ent['head']
 
             entities.append(ent)
+            entity_chunks.append(entity)
 
         # Step 2: determine the subject of the verbs.
         # To handle the situation where multiple nouns may be the same word,
@@ -169,8 +175,8 @@ class SpacyParser(object):
             if relation is not None:
                 # Use a helper function to map the subj/obj represented by the position
                 # back to one of the entity nodes.
-                relation['subject'] = self.__locate_noun(doc.noun_chunks, relation['subject'])
-                relation['object'] = self.__locate_noun(doc.noun_chunks, relation['object'])
+                relation['subject'] = self.__locate_noun(entity_chunks, relation['subject'])
+                relation['object'] = self.__locate_noun(entity_chunks, relation['object'])
                 if relation['subject'] != None and relation['object'] != None:
                     relations.append(relation)
         
