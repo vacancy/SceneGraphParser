@@ -14,6 +14,8 @@ import spacy
 
 nlp = spacy.load('en')
 
+extra_nouns = ['cabin', 'airport', 'terminal', 'arcade', 'park', 'apartment', 'gallery', 'school', 'studio', 'loft', 'field', 'factory', 'showroom', 'bank', 'banquet', 'court', 'salon', 'laboratory', 'station', 'store', 'lab', 'room', 'conference', 'dorm', 'lobby', 'entrance', 'restaurant', 'market', 'office', 'theater', 'skating', 'jail', 'kindergarden', 'dock', 'gym', 'cubicles', 'residential', 'mall', 'resort', 'hole', 'hostel']
+
 
 def main():
     nouns = set()
@@ -22,21 +24,13 @@ def main():
         line = line.split('/')[2:]
         for x in line:
             parts = x.split('_')
-            if len(parts) > 1:
-                for p in parts:
-                    if p not in nouns:
-                        print('add', p, file=sys.stderr)
-                    nouns.add(p)
             nouns.add(' '.join(parts))
 
+    nouns.update(set(extra_nouns))
+
     for n in sorted(nouns):
-        if ' ' not in n:
-            if nlp(n)[0].pos_ != 'NOUN':
-                print('remove', n, file=sys.stderr)
-            else:
-                print(n)
-        else:
-            print(n)
+        print(n)
+
 
 if __name__ == '__main__':
     main()

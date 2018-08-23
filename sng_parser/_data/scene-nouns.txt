@@ -1,12 +1,10 @@
 airfield
-airplane
 airplane cabin
 airport
 airport terminal
 alcove
 alley
 amphitheater
-amusement
 amusement arcade
 amusement park
 apartment
@@ -14,32 +12,28 @@ apartment building
 aquarium
 aqueduct
 arcade
+arch
 archaelogical excavation
-area
+archive
 arena
-army
 army base
-art
 art gallery
 art school
 art studio
-artists
 artists loft
-arts
-assembly
+asia
 assembly line
 athletic field
 atrium
+attic
 auditorium
-auto
 auto factory
 auto showroom
 badlands
 bakery
-ball
+balcony
 ball pit
 ballroom
-bamboo
 bamboo forest
 bank
 bank vault
@@ -47,28 +41,23 @@ banquet
 banquet hall
 bar
 barn
-base
+barndoor
 baseball
 baseball field
 basement
-basketball
 basketball court
 bathroom
 bazaar
 beach
 beach house
-beauty
 beauty salon
 bedchamber
 bedroom
-beer
 beer garden
 beer hall
 berth
-biology
 biology laboratory
 boardwalk
-boat
 boat deck
 boathouse
 bookstore
@@ -76,81 +65,69 @@ booth
 botanical garden
 bow window
 bowling alley
-boxing
 boxing ring
 bridge
 broadleaf
-building
 building facade
-burial
+bullring
 burial chamber
-bus
 bus interior
 bus station
-butchers
 butchers shop
 butte
 cabin
 cafeteria
+campsite
 campus
-candy
+canal
 candy store
 canyon
-car
 car interior
 carrousel
+castle
 catacomb
-cell
 cemetery
-center
 chalet
-chamber
-chemistry
 chemistry lab
-childs
 childs room
 church
 classroom
 clean room
 cliff
 closet
-clothing
 clothing store
 coast
 cockpit
-coffee
 coffee shop
-computer
 computer room
 conference
 conference center
 conference room
-construction
 construction site
-corn
 corn field
+corral
 corridor
 cottage
 court
 courthouse
 courtyard
-cream
 creek
 crevasse
+crosswalk
 cubicles
+cultivated
 dam
-deck
 delicatessen
-department
 department store
 desert
 desert road
 diner
-dining
 dining hall
 dining room
+discotheque
 dock
 door
+doorway
 dorm
 dorm room
 downtown
@@ -161,30 +138,23 @@ elevator
 elevator lobby
 elevator shaft
 embassy
-engine
 engine room
 entrance
 entrance hall
 escalator
 excavation
 exterior
-fabric
 fabric store
 factory
 farm
-fastfood
 fastfood restaurant
 field
 field road
-fire
 fire escape
 fire station
 fishpond
-flea
 flea market
-florist
 florist shop
-food
 food court
 football
 football field
@@ -194,33 +164,26 @@ forest road
 formal garden
 fountain
 gallery
+galley
 garage
-garden
-gas
 gas station
 gazebo
 general store
-gift
 gift shop
 glacier
-golf
 golf course
 greenhouse
 grotto
 gym
 gymnasium
-hall
 hangar
 harbor
-hardware
 hardware store
 hayfield
 heliport
 highway
-history
 hockey
 hole
-home
 home office
 home theater
 hospital
@@ -231,22 +194,26 @@ hotel
 hotel room
 house
 hunting lodge
-ice
 ice cream parlor
 ice floe
 ice shelf
 ice skating rink
 iceberg
+igloo
+indoor
 industrial area
+inn
+interior
 islet
 jacuzzi
 jail
 jail cell
 japanese garden
-jewelry
 jewelry shop
+junkyard
 kasbah
 kennel
+kindergarden
 kindergarden classroom
 kitchen
 lab
@@ -255,28 +222,23 @@ lagoon
 lake
 landfill
 landing deck
+laundromat
 lawn
-lecture
 lecture room
 legislative chamber
 library
 lighthouse
-line
 living room
-loading
 loading dock
 lobby
-lock
 lock chamber
-locker
 locker room
-lodge
 loft
-lot
 mall
 mansion
 manufactured home
 market
+marsh
 martial arts gym
 mausoleum
 medina
@@ -287,15 +249,12 @@ motel
 mountain
 mountain path
 mountain snowy
-movie
 movie theater
 museum
-music
 music studio
+natural
 natural history museum
-neighborhood
 nursery
-nursing
 nursing home
 oast house
 ocean
@@ -303,68 +262,57 @@ ocean deep
 office
 office building
 office cubicles
+oilrig
 operating room
 orchard
-orchestra
 orchestra pit
-paddy
+outdoor
 pagoda
 palace
 pantry
 park
-parking
 parking garage
 parking lot
-parlor
 pasture
-path
+patio
 pavilion
 performance
 pet shop
 pharmacy
-phone
 phone booth
-physics
 physics laboratory
-picnic
 picnic area
 pier
-pit
 pizzeria
 platform
+playground
 playroom
 plaza
 pond
-pool
 porch
 promenade
 pub
+public
+racecourse
 raceway
 raft
-railroad
 railroad track
+rainforest
 reception
-recreation
 recreation room
-repair
 repair shop
+residential
 residential neighborhood
 resort
 restaurant
 restaurant kitchen
 restaurant patio
-rice
 rice paddy
-ring
 river
-road
-rock
 rock arch
 rodeo
-roof
 roof garden
 room
-rope
 rope bridge
 ruin
 runway
@@ -374,77 +322,62 @@ sandbox
 sauna
 school
 schoolhouse
-science
 science museum
-server
 server room
-shaft
-shelf
-shoe
+shed
 shoe shop
 shop
-shopping
+shopfront
 shopping mall
 shower
 showroom
-site
-ski
+skating
 ski resort
 ski slope
 sky
 skyscraper
-slope
 slum
+snowfield
 soccer
 soccer field
-spring
+stable
 stadium
 stage
 staircase
 station
-storage
 storage room
 store
 street
 studio
-subway
 subway station
 supermarket
 sushi bar
 swamp
-swimming
 swimming hole
 swimming pool
 synagogue
-television
 television room
 television studio
 temple
+terminal
 theater
-throne
 throne room
-ticket
 ticket booth
-topiary
 topiary garden
 tower
 toyshop
-track
-train
 train interior
 train station
-tree
 tree farm
 tree house
 trench
 tundra
-utility
+underwater
+urban
 utility room
 valley
-vault
 vegetable garden
 vegetation
-veterinarians
 veterinarians office
 viaduct
 village
@@ -455,17 +388,14 @@ waiting room
 water
 water park
 water tower
+waterfall
 watering hole
 wave
 wet bar
-wheat
 wheat field
-wind
+wild
 wind farm
 windmill
-window
 yard
-youth
 youth hostel
-zen
 zen garden
