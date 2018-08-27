@@ -74,7 +74,7 @@ Alternatively, you can configure your own parser:
 
 ```python
 >>> import sng_parser
->>> parser = sng_parser.Parser('spacy', model='en') . # the positional argument specifies the backend, and the keyward arguments are for the backend initialization.
+>>> parser = sng_parser.Parser('spacy', model='en')  # the positional argument specifies the backend, and the keyward arguments are for the backend initialization.
 >>> graph = parser.parse('A woman is playing the piano in the room.')
 ```
 
