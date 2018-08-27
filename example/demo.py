@@ -32,6 +32,7 @@ def main():
     demo('A woman is playing the space craft at NASA.')
     demo('A woman is playing with a space craft at NASA.')
     demo('A woman next to a piano.')
+    demo('A woman in front of a piano.')
     demo('A woman standing next to a piano.')
     demo('The woman is a pianist.')
     demo('A giraffe grazing a tree in the wildness with other wildlife.')

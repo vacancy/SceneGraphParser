@@ -30,6 +30,10 @@ def is_phrasal_verb(verb):
     return verb in load_list('phrasal-verbs.txt')
 
 
+def is_phrasal_prep(prep):
+    return prep in load_list('phrasal-preps.txt')
+
+
 def is_scene_noun(noun):
     head = noun.split(' ')[-1]
     s = load_list('scene-nouns.txt') 

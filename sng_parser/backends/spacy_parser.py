@@ -113,6 +113,7 @@ class SpacyParser(object):
 
         # Step 3: determine the relations.
         relations = list()
+        fake_noun_marks = set()
         for entity in doc.noun_chunks:
             # Again, the subjects and the objects are represented by their position.
             relation = None
@@ -153,6 +154,18 @@ class SpacyParser(object):
                         'object': entity.root.i,
                         'relation': entity.root.head.text,
                         'lemma_relation': entity.root.head.lemma_
+                    }
+                # E.g., A [woman] in front of a [piano].
+                elif (
+                        entity.root.head.head.dep_ == 'pobj' and
+                        database.is_phrasal_prep(doc[entity.root.head.head.head.i:entity.root.head.i + 1].lower_)
+                ):
+                    fake_noun_marks.add(entity.root.head.head.i)
+                    relation = {
+                        'subject': entity.root.head.head.head.head.i,
+                        'object': entity.root.i,
+                        'relation': doc[entity.root.head.head.head.i:entity.root.head.i + 1].text,
+                        'lemma_relation': doc[entity.root.head.head.head.i:entity.root.head.i].lemma_
                     }
                 # E.g., A [piano] in the [room].
                 elif entity.root.head.head.pos_ == 'NOUN':
@@ -197,13 +210,17 @@ class SpacyParser(object):
                     'lemma_relation': entity.root.head.lemma_
                 }
 
-            if relation is not None:
-                # Use a helper function to map the subj/obj represented by the position
-                # back to one of the entity nodes.
-                relation['subject'] = self.__locate_noun(entity_chunks, relation['subject'])
-                relation['object'] = self.__locate_noun(entity_chunks, relation['object'])
-                if relation['subject'] != None and relation['object'] != None:
-                    relations.append(relation)
+        # Apply the `fake_noun_marks`.
+        entities = [e for e, ec in zip(entities, entity_chunks) if ec.root.i not in fake_noun_marks]
+        entity_chunks = [ec for ec in entity_chunks if ec.root.i not in fake_noun_marks]
+
+        if relation is not None:
+            # Use a helper function to map the subj/obj represented by the position
+            # back to one of the entity nodes.
+            relation['subject'] = self.__locate_noun(entity_chunks, relation['subject'])
+            relation['object'] = self.__locate_noun(entity_chunks, relation['object'])
+            if relation['subject'] != None and relation['object'] != None:
+                relations.append(relation)
         
         return {'entities': entities, 'relations': relations}
 
