@@ -52,7 +52,7 @@ class SpacyParser(object):
         between noun chunks are used for determining the relations among these entities.
 
         The parsing is performed in three steps:
-        
+
             1. find all the noun chunks as the entities, and resolve the modifiers on them.
             2. determine the subject of verbs (including nsubj, acl and pobjpass). Please refer to the comments
             in the code for better explanation.
@@ -101,7 +101,7 @@ class SpacyParser(object):
         # the tokens are represented by their position in the sentence instead of their text.
         relation_subj = dict()
         for token in doc:
-            # E.g., A [woman] is [playing] the piano. 
+            # E.g., A [woman] is [playing] the piano.
             if token.dep_ == 'nsubj':
                 relation_subj[token.head.i] = token.i
             # E.g., A [woman] [playing] the piano...
@@ -118,7 +118,7 @@ class SpacyParser(object):
             # Again, the subjects and the objects are represented by their position.
             relation = None
 
-            # E.g., A woman is [playing] the [piano]. 
+            # E.g., A woman is [playing] the [piano].
             # E.g., The woman [is] a [pianist].
             if entity.root.dep_ in ('dobj', 'attr') and entity.root.head.i in relation_subj:
                 relation = {
@@ -146,7 +146,7 @@ class SpacyParser(object):
                 # E.g., A [woman] is playing the piano in the [room]. Note that room.head.head == playing.
                 # E.g., A [woman] playing the piano in the [room].
                 elif (
-                        entity.root.head.head.pos_ == 'VERB' or 
+                        entity.root.head.head.pos_ == 'VERB' or
                         entity.root.head.head.dep_ == 'acl'
                 ) and entity.root.head.head.i in relation_subj:
                     relation = {
@@ -210,19 +210,23 @@ class SpacyParser(object):
                     'lemma_relation': entity.root.head.lemma_
                 }
 
+            if relation is not None:
+                relations.append(relation)
+
         # Apply the `fake_noun_marks`.
         entities = [e for e, ec in zip(entities, entity_chunks) if ec.root.i not in fake_noun_marks]
         entity_chunks = [ec for ec in entity_chunks if ec.root.i not in fake_noun_marks]
 
-        if relation is not None:
+        filtered_relations = list()
+        for relation in relations:
             # Use a helper function to map the subj/obj represented by the position
             # back to one of the entity nodes.
             relation['subject'] = self.__locate_noun(entity_chunks, relation['subject'])
             relation['object'] = self.__locate_noun(entity_chunks, relation['object'])
             if relation['subject'] != None and relation['object'] != None:
-                relations.append(relation)
-        
-        return {'entities': entities, 'relations': relations}
+                filtered_relations.append(relation)
+
+        return {'entities': entities, 'relations': filtered_relations}
 
     @staticmethod
     def __locate_noun(chunks, i):
