@@ -9,9 +9,11 @@
 # Distributed under terms of the MIT license.
 # https://github.com/vacancy/SceneGraphParser
 
-import spacy
-
 __all__ = ['Parser', 'get_default_parser', 'parse']
+
+
+def _load_backends():
+    from . import backends
 
 
 class Parser(object):
@@ -33,6 +35,8 @@ class Parser(object):
     """
 
     def __init__(self, backend=None, **kwargs):
+        _load_backends()
+
         self.backend = backend
         if self.backend is None:
             self.backend = type(self)._default_backend
@@ -64,7 +68,7 @@ class Parser(object):
             sentence (str): the input sentence.
 
         Returns:
-            graph (dict): the parsed scene graph. Please refer to the 
+            graph (dict): the parsed scene graph. Please refer to the
             README file for the specification of the return value.
         """
         return self.unwrapped.parse(sentence, **kwargs)
@@ -79,7 +83,7 @@ class Parser(object):
         method named `parse` having the following signature:
         `parse(sentence, <other_keyward_arguments>)`.
 
-        To register your customized backend as the parser, use this class 
+        To register your customized backend as the parser, use this class
         method as a decorator on your class.
 
         Example::

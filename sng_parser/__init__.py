@@ -10,7 +10,6 @@
 # https://github.com/vacancy/SceneGraphParser
 
 from .parser import *
-from .backends import *
 from .utils import *
 
 __version__ = (0, 1, 0)

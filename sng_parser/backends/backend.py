@@ -9,6 +9,8 @@
 # Distributed under terms of the MIT license.
 # https://github.com/vacancy/SceneGraphParser
 
+__all__ = ['ParserBackend']
+
 
 class ParserBackend(object):
     """

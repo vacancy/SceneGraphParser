@@ -11,12 +11,13 @@
 
 import sng_parser.database as database
 from sng_parser.parser import Parser
+from .backend import ParserBackend
 
 __all__ = ['SpacyParser']
 
 
 @Parser.register_backend
-class SpacyParser(object):
+class SpacyParser(ParserBackend):
     """
     Scene graph parser based on spaCy.
     """
@@ -43,7 +44,7 @@ class SpacyParser(object):
         except OSError as e:
             raise ImportError('Unable to load the English model. Run `python -m spacy download en` first.') from e
 
-    def parse(self, sentence):
+    def parse(self, sentence, return_doc=False):
         """
         The spaCy-based parser parse the sentence into scene graphs based on the dependency parsing
         of the sentence by spaCy.
@@ -73,6 +74,7 @@ class SpacyParser(object):
                 lemma_span=entity.lemma_,
                 head=entity.root.text,
                 lemma_head=entity.root.lemma_,
+                span_bounds=(entity.start, entity.end),
                 modifiers=[]
             )
 
@@ -226,6 +228,8 @@ class SpacyParser(object):
             if relation['subject'] != None and relation['object'] != None:
                 filtered_relations.append(relation)
 
+        if return_doc:
+            return {'entities': entities, 'relations': filtered_relations}, doc
         return {'entities': entities, 'relations': filtered_relations}
 
     @staticmethod
