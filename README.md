@@ -9,6 +9,14 @@ Different from the Stanford version, this parser is written purely by Python. It
 > **Note**: As you may notice, the parsing is done by a set of human-written rules on the parsing tree. Thus, we need help from everyone on collecting failure/corner cases of the current program.
 > Any kind of reports or help should be more than welcome.
 
+> This repo was developed for:
+```
+Unified Visual-Semantic Embeddings: Bridging Vision and Language With Structured Meaning Representations
+Hao Wu, Jiayuan Mao, Yufeng Zhang, Yuning Jiang, Lei Li, Weiwei Sun, Wei-Ying Ma
+CVPR2019
+```
+> Please consider citing our paper if yo feel confortable :). The difference between this repo and the Schuster et al. can be found in #7.
+
 ## Example
 
 The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy yourself by:
