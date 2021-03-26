@@ -22,7 +22,7 @@ Yufeng Zhang,
 <br />
 In Conference on Computer Vision and Pattern Recognition (CVPR) 2019 **(Oral Presentation)**
 
-Please consider citing our paper if yo feel confortable :). The difference between this repo and the original Stanford Scene Graph Parser can be found in [#7](https://github.com/vacancy/SceneGraphParser/issues/7).
+Please consider citing our paper if you feel confortable :). The difference between this repo and the original Stanford Scene Graph Parser can be found in [#7](https://github.com/vacancy/SceneGraphParser/issues/7).
 
 ## Example
 
