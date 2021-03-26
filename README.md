@@ -9,13 +9,20 @@ Different from the Stanford version, this parser is written purely by Python. It
 > **Note**: As you may notice, the parsing is done by a set of human-written rules on the parsing tree. Thus, we need help from everyone on collecting failure/corner cases of the current program.
 > Any kind of reports or help should be more than welcome.
 
-> This repo was developed for:
-```
-Unified Visual-Semantic Embeddings: Bridging Vision and Language With Structured Meaning Representations
-Hao Wu, Jiayuan Mao, Yufeng Zhang, Yuning Jiang, Lei Li, Weiwei Sun, Wei-Ying Ma
-CVPR2019
-```
-> Please consider citing our paper if yo feel confortable :). The difference between this repo and the Schuster et al. can be found in #7.
+This repo was developed for: <br />
+**[Unified Visual-Semantic Embeddings: Bridging Vision and Language With Structured Meaning Representations](https://openaccess.thecvf.com/content_CVPR_2019/papers/Wu_Unified_Visual-Semantic_Embeddings_Bridging_Vision_and_Language_With_Structured_Meaning_CVPR_2019_paper.pdf)**
+<br />
+Hao Wu,
+[Jiayuan Mao](http://jiayuanm.com), 
+Yufeng Zhang,
+[Yuning Jiang](https://yuningjiang.github.io),
+[Lei Li](https://lileicc.github.io),
+[Weiwei Sun](http://homepage.fudan.edu.cn/wwsun/), and
+[Wei-Ying Ma](http://homepage.fudan.edu.cn/wwsun/)
+<br />
+In Conference on Computer Vision and Pattern Recognition (CVPR) 2019 **(Oral Presentation)**
+
+Please consider citing our paper if yo feel confortable :). The difference between this repo and the original Stanford Scene Graph Parser can be found in [#7](https://github.com/vacancy/SceneGraphParser/issues/7)
 
 ## Example
 
