@@ -9,8 +9,8 @@
 # Distributed under terms of the MIT license.
 # https://github.com/vacancy/SceneGraphParser
 
-import sng_parser.database as database
-from sng_parser.parser import Parser
+from .. import database
+from ..parser import Parser
 from .backend import ParserBackend
 
 __all__ = ['SpacyParser']
