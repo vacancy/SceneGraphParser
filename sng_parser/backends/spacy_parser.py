@@ -24,7 +24,7 @@ class SpacyParser(ParserBackend):
 
     __identifier__ = 'spacy'
 
-    def __init__(self, model='en'):
+    def __init__(self, model=None):
         """
         Args:
             model (str): a spec for the spaCy model. (default: en). Please refer to the
@@ -32,12 +32,19 @@ class SpacyParser(ParserBackend):
             This option is useful if you are dealing with languages other than English.
         """
 
-        self.model = model
-
         try:
             import spacy
         except ImportError as e:
             raise ImportError('Spacy backend requires the spaCy library. Install spaCy via pip first.') from e
+
+        if spacy.__version__ < '3':
+            default_model = 'en'
+        else:
+            default_model = 'en_core_web_sm'
+
+        self.model = model
+        if self.model is not None:
+            self.model = default_model
 
         try:
             self.nlp = spacy.load(model)
@@ -160,7 +167,7 @@ class SpacyParser(ParserBackend):
                 # E.g., A [woman] in front of a [piano].
                 elif (
                         entity.root.head.head.dep_ == 'pobj' and
-                        database.is_phrasal_prep(doc[entity.root.head.head.head.i:entity.root.head.i + 1].lower_)
+                        database.is_phrasal_prep(doc[entity.root.head.head.head.i:entity.root.head.i + 1].text.lower())
                 ):
                     fake_noun_marks.add(entity.root.head.head.i)
                     relation = {
