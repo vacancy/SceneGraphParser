@@ -29,7 +29,7 @@ Please consider citing our paper if you feel confortable :). The difference betw
 The package can be installed using pip. As it currently only support spaCy as Backend, the English package needs to be downloaded after installation.
 
 ```bash
-pip install https://github.com/vacancy/SceneGraphParser
+pip install git+https://github.com/vacancy/SceneGraphParser
 python -m spacy download en  # to use the parser for English
 ```
 
