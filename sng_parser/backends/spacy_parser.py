@@ -43,11 +43,11 @@ class SpacyParser(ParserBackend):
             default_model = 'en_core_web_sm'
 
         self.model = model
-        if self.model is not None:
+        if self.model is None:
             self.model = default_model
 
         try:
-            self.nlp = spacy.load(model)
+            self.nlp = spacy.load(self.model)
         except OSError as e:
             raise ImportError('Unable to load the English model. Run `python -m spacy download en` first.') from e
 
