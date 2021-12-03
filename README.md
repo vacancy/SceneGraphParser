@@ -24,13 +24,21 @@ In Conference on Computer Vision and Pattern Recognition (CVPR) 2019 **(Oral Pre
 
 Please consider citing our paper if you feel confortable :). The difference between this repo and the original Stanford Scene Graph Parser can be found in [#7](https://github.com/vacancy/SceneGraphParser/issues/7).
 
-## Example
+## Installation
 
-The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. To use it, you must install spaCy yourself by:
+The package be installed using pip. As it currently only support spaCy as Backend, the English package needs to be downloaded after installation.
 
 ```bash
-pip install spacy
+pip install git+https://github.com/rafiberlin/SceneGraphParser
 python -m spacy download en  # to use the parser for English
+```
+
+## Example
+
+The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. 
+```bash
+pip install spacy
+
 ```
 
 ```python
