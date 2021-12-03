@@ -16,8 +16,8 @@ setup(
     # long_description=long_description,
 
     install_requires=[
-        "spacy",
-        "tabulate"
+        "spacy>=3.2.0",
+        "tabulate>=0.8.9"
     ],
 
     # The project's main homepage.
