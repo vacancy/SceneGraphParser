@@ -1,8 +1,19 @@
-"""
-Created on 22.08.2018
-@author: Jiayuan Mao
-"""
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
+# File   : setup.py
+# Author : Jiayuan Mao
+# Email  : maojiayuan@gmail.com
+# Date   : 12/30/2021
+#
+# This file is part of SceneGraphParser.
+# Distributed under terms of the MIT license.
+
+
 from setuptools import setup, find_packages
+
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 
 setup(
     name='SceneGraphParser',
@@ -10,10 +21,11 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.1',
+    version='0.0.2',
 
-    description='A python toolkit for parsing sentences (natural language)',
-    # long_description=long_description,
+    description='A python toolkit for parsing sentences (natural language) into scene graphs (symbolic representations).',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 
     install_requires=[
         "spacy>=3.2.0",
@@ -36,16 +48,10 @@ setup(
         #   4 - Beta
         #   5 - Production/Stable
         'Development Status :: 3 - Alpha',
-
-        # Indicate who your project is intended for
-        'Intended Audience :: Researchers',
-
-        # Pick your license as you wish (should match "license" above)
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
-
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3.6',
+        'Topic :: Text Processing',
     ],
 
     # What does your project relate to?
@@ -77,7 +83,7 @@ setup(
     # Attention: the root folder (used as keys) in package data must be dot separated if it goes deeper and not with /
     # example src.sng_parser instead of src/sng_parser
     package_data={
-         'sng_parser': ["_data/*.txt"],
+        'sng_parser': ["_data/*.txt"],
     },
 
     # data_files=[('project/configuration', ['project/configuration/configuration.ini.template'])],
@@ -87,5 +93,5 @@ setup(
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
     # data_files=[('my_data', ['data/data_file.txt'])],
-
 )
+

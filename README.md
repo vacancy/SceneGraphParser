@@ -13,7 +13,7 @@ This repo was developed for: <br />
 **[Unified Visual-Semantic Embeddings: Bridging Vision and Language With Structured Meaning Representations](https://openaccess.thecvf.com/content_CVPR_2019/papers/Wu_Unified_Visual-Semantic_Embeddings_Bridging_Vision_and_Language_With_Structured_Meaning_CVPR_2019_paper.pdf)**
 <br />
 Hao Wu,
-[Jiayuan Mao](http://jiayuanm.com), 
+[Jiayuan Mao](http://jiayuanm.com),
 Yufeng Zhang,
 [Yuning Jiang](https://yuningjiang.github.io),
 [Lei Li](https://lileicc.github.io),
@@ -29,13 +29,13 @@ Please consider citing our paper if you feel confortable :). The difference betw
 The package can be installed using pip. As it currently only support spaCy as Backend, the English package needs to be downloaded after installation.
 
 ```bash
-pip install git+https://github.com/vacancy/SceneGraphParser
+pip install SceneGraphParser
 python -m spacy download en  # to use the parser for English
 ```
 
 ## Example
 
-The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend. 
+The easiest way to use this tool is by calling the `parse` function. In design, `sng_parser` supports different backends. Currently, we only support the spaCy backend.
 ```bash
 pip install spacy
 
@@ -127,7 +127,7 @@ The generated scene graphs match the following spec:
     },
     # other entities...
   ],
-  
+
   'relations': [  # a list of relations
     # the subject and object fields are sometimes called "head" and "tail" in relation extraction papers.
     {
