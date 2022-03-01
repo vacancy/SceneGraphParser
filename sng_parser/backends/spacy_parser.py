@@ -9,6 +9,7 @@
 # Distributed under terms of the MIT license.
 # https://github.com/vacancy/SceneGraphParser
 
+from copy import deepcopy
 from .. import database
 from ..parser import Parser
 from .backend import ParserBackend
@@ -92,7 +93,8 @@ class SpacyParser(ParserBackend):
                 elif x.dep_ == 'nummod':
                     ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
                 elif x.dep_ == 'amod':
-                    ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                    for y in self.__flatten_conjunction(x):
+                        ent['modifiers'].append({'dep': x.dep_, 'span': y.text, 'lemma_span': y.lemma_})
                 elif x.dep_ == 'compound':
                     ent['head'] = x.text + ' ' + ent['head']
                     ent['lemma_head'] = x.lemma_ + ' ' + ent['lemma_head']
@@ -230,10 +232,13 @@ class SpacyParser(ParserBackend):
         for relation in relations:
             # Use a helper function to map the subj/obj represented by the position
             # back to one of the entity nodes.
-            relation['subject'] = self.__locate_noun(entity_chunks, relation['subject'])
-            relation['object'] = self.__locate_noun(entity_chunks, relation['object'])
-            if relation['subject'] != None and relation['object'] != None:
-                filtered_relations.append(relation)
+            for x in self.__flatten_conjunction(doc[relation['subject']]):
+                for y in self.__flatten_conjunction(doc[relation['object']]):
+                    rel = deepcopy(relation)
+                    rel['subject'] = self.__locate_noun(entity_chunks, x.i)
+                    rel['object'] = self.__locate_noun(entity_chunks, y.i)
+                    if rel['subject'] != None and rel['object'] != None:
+                        filtered_relations.append(rel)
 
         if return_doc:
             return {'entities': entities, 'relations': filtered_relations}, doc
@@ -245,4 +250,11 @@ class SpacyParser(ParserBackend):
             if c.start <= i < c.end:
                 return j
         return None
+
+    @staticmethod
+    def __flatten_conjunction(node):
+        yield node
+        for c in node.children:
+            if c.dep_ == 'conj':
+                yield c
 

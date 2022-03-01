@@ -20,7 +20,7 @@ def demo(sentence):
     print('Sentence:', sentence)
 
     # Here we just use the default parser.
-    sng_parser.tprint(sng_parser.parse(sentence), show_entities=False)
+    sng_parser.tprint(sng_parser.parse(sentence))
 
     print()
 
@@ -37,6 +37,14 @@ def main():
     demo('The woman is a pianist.')
     demo('A giraffe grazing a tree in the wildness with other wildlife.')
     demo('Cow standing on sidewalk in city area near shops.')
+
+    print('Input your own sentence. Type q to quit.')
+    while True:
+        sent = input('> ')
+        if sent.strip() == 'q':
+            break
+        demo(sent)
+
 
 if __name__ == '__main__':
     main()
