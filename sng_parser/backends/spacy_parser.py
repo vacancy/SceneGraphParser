@@ -86,18 +86,21 @@ class SpacyParser(ParserBackend):
                 modifiers=[]
             )
 
-            for x in entity.root.children:
-                # TODO(Jiayuan Mao @ 08/21): try to determine the number.
-                if x.dep_ == 'det':
-                    ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
-                elif x.dep_ == 'nummod':
-                    ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
-                elif x.dep_ == 'amod':
-                    for y in self.__flatten_conjunction(x):
-                        ent['modifiers'].append({'dep': x.dep_, 'span': y.text, 'lemma_span': y.lemma_})
-                elif x.dep_ == 'compound':
-                    ent['head'] = x.text + ' ' + ent['head']
-                    ent['lemma_head'] = x.lemma_ + ' ' + ent['lemma_head']
+            def dfs(node):
+                for x in node.children:
+                    if x.dep_ == 'det':
+                        ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                    elif x.dep_ == 'nummod':
+                        ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                    elif x.dep_ == 'amod':
+                        for y in self.__flatten_conjunction(x):
+                            ent['modifiers'].append({'dep': x.dep_, 'span': y.text, 'lemma_span': y.lemma_})
+                    elif x.dep_ == 'compound':
+                        ent['head'] = x.text + ' ' + ent['head']
+                        ent['lemma_head'] = x.lemma_ + ' ' + ent['lemma_head']
+                        dfs(x)
+
+            dfs(entity.root)
 
             if database.is_scene_noun(ent['lemma_head']):
                 ent['type'] = 'scene'
@@ -204,6 +207,14 @@ class SpacyParser(ParserBackend):
                     }
                 # E.g., A [woman] is playing the [piano] in the room
                 elif entity.root.head.head.dep_== 'VERB' and entity.root.head.head.i in relation_subj:
+                    relation = {
+                        'subject': relation_subj[entity.root.head.head.i],
+                        'object': entity.root.i,
+                        'relation': entity.root.head.text,
+                        'lemma_relation': entity.root.head.lemma_
+                    }
+                # E.g., A [piano] is in the [room].
+                elif entity.root.head.head.pos_ == 'AUX' and entity.root.head.head.i in relation_subj:
                     relation = {
                         'subject': relation_subj[entity.root.head.head.i],
                         'object': entity.root.i,
