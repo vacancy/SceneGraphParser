@@ -52,7 +52,7 @@ class SpacyParser(ParserBackend):
         except OSError as e:
             raise ImportError('Unable to load the English model. Run `python -m spacy download en` first.') from e
 
-    def parse(self, sentence, return_doc=False):
+    def parse(self, sentence, doc=None, return_doc=False):
         """
         The spaCy-based parser parse the sentence into scene graphs based on the dependency parsing
         of the sentence by spaCy.
@@ -67,7 +67,7 @@ class SpacyParser(ParserBackend):
             in the code for better explanation.
             3. determine all the relations among entities.
         """
-        doc = self.nlp(sentence)
+        doc = doc or self.nlp(sentence)
 
         # Step 1: determine the entities.
         entities = list()
