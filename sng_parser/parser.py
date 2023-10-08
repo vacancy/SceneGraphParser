@@ -96,6 +96,7 @@ class Parser(object):
             cls._backend_registry[backend.__identifier__] = backend
         except Exception as e:
             raise ImportError('Unable to register backend: {}.'.format(backend.__name__)) from e
+        return backend
 
 
 _default_parser = None
