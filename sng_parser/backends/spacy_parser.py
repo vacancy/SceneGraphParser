@@ -86,19 +86,24 @@ class SpacyParser(ParserBackend):
                 modifiers=[]
             )
 
+            visited_nodes = set()
+
             def dfs(node):
-                for x in node.children:
-                    if x.dep_ == 'det':
-                        ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
-                    elif x.dep_ == 'nummod':
-                        ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
-                    elif x.dep_ == 'amod':
-                        for y in self.__flatten_conjunction(x):
-                            ent['modifiers'].append({'dep': x.dep_, 'span': y.text, 'lemma_span': y.lemma_})
-                    elif x.dep_ == 'compound':
-                        ent['head'] = x.text + ' ' + ent['head']
-                        ent['lemma_head'] = x.lemma_ + ' ' + ent['lemma_head']
-                        dfs(x)
+                if node not in visited_nodes:  # Sometimes, the dependency graph is erroneously cyclic.
+                    visited_nodes.add(node)
+
+                    for x in node.children:
+                        if x.dep_ == 'det':
+                            ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                        elif x.dep_ == 'nummod':
+                            ent['modifiers'].append({'dep': x.dep_, 'span': x.text, 'lemma_span': x.lemma_})
+                        elif x.dep_ == 'amod':
+                            for y in self.__flatten_conjunction(x):
+                                ent['modifiers'].append({'dep': x.dep_, 'span': y.text, 'lemma_span': y.lemma_})
+                        elif x.dep_ == 'compound':
+                            ent['head'] = x.text + ' ' + ent['head']
+                            ent['lemma_head'] = x.lemma_ + ' ' + ent['lemma_head']
+                            dfs(x)
 
             dfs(entity.root)
 
