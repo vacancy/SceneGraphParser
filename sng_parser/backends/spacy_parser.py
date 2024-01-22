@@ -203,7 +203,7 @@ class SpacyParser(ParserBackend):
                         'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
                     }
                 # E.g., A [piano] is next to a [woman].
-                elif entity.root.head.head.dep_ == 'acomp' and entity.root.head.head.head.pos_ == 'AUX':
+                elif entity.root.head.head.dep_ in ('amod', 'advmod', 'acomp') and entity.root.head.head.head.pos_ == 'AUX':
                     relation = {
                         'subject': relation_subj[entity.root.head.head.head.i],
                         'object': entity.root.i,
