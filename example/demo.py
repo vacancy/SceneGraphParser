@@ -37,6 +37,11 @@ def main():
     demo('The woman is a pianist.')
     demo('A giraffe grazing a tree in the wildness with other wildlife.')
     demo('Cow standing on sidewalk in city area near shops.')
+    demo('She is playing the piano.')  # wrong, contain "she"
+    demo('A woman is next to a piano.')  # wrong
+    demo('A woman is in front of a piano.')  # wrong
+    demo('A woman is standing next to a piano.')  # correct 
+    demo('A bowl of rice, noodle and grains.')  # wrong
 
     print('Input your own sentence. Type q to quit.')
     while True:
