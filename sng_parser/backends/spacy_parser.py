@@ -74,7 +74,7 @@ class SpacyParser(ParserBackend):
         entity_chunks = list()
         for entity in doc.noun_chunks:
             # Ignore pronouns such as "it".
-            if entity.root.lemma_ == '-PRON-':
+            if entity.root.pos_ == "PRON":
                 continue
 
             ent = dict(
@@ -174,14 +174,14 @@ class SpacyParser(ParserBackend):
                         'relation': entity.root.head.text,
                         'lemma_relation': entity.root.head.lemma_
                     }
-                # E.g., A [woman] in front of a [piano].
+                # E.g., A [woman] (is) in front of a [piano].
                 elif (
                         entity.root.head.head.dep_ == 'pobj' and
                         database.is_phrasal_prep(doc[entity.root.head.head.head.i:entity.root.head.i + 1].text.lower())
                 ):
                     fake_noun_marks.add(entity.root.head.head.i)
                     relation = {
-                        'subject': entity.root.head.head.head.head.i,
+                        'subject': relation_subj[entity.root.head.head.head.head.i] if entity.root.head.head.head.head.pos_ == 'AUX' else entity.root.head.head.head.head.i,
                         'object': entity.root.i,
                         'relation': doc[entity.root.head.head.head.i:entity.root.head.i + 1].text,
                         'lemma_relation': doc[entity.root.head.head.head.i:entity.root.head.i].lemma_
@@ -198,6 +198,14 @@ class SpacyParser(ParserBackend):
                 elif entity.root.head.head.dep_ in ('amod', 'advmod') and entity.root.head.head.head.pos_ == 'NOUN':
                     relation = {
                         'subject': entity.root.head.head.head.i,
+                        'object': entity.root.i,
+                        'relation': entity.root.head.head.text + ' ' + entity.root.head.text,
+                        'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
+                    }
+                # E.g., A [piano] is next to a [woman].
+                elif entity.root.head.head.dep_ == 'acomp' and entity.root.head.head.head.pos_ == 'AUX':
+                    relation = {
+                        'subject': relation_subj[entity.root.head.head.head.i],
                         'object': entity.root.i,
                         'relation': entity.root.head.head.text + ' ' + entity.root.head.text,
                         'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
@@ -272,5 +280,5 @@ class SpacyParser(ParserBackend):
         yield node
         for c in node.children:
             if c.dep_ == 'conj':
-                yield c
+                yield from SpacyParser.__flatten_conjunction(c)
 
