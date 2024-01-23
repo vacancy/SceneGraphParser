@@ -181,7 +181,7 @@ class SpacyParser(ParserBackend):
                 ):
                     fake_noun_marks.add(entity.root.head.head.i)
                     relation = {
-                        'subject': relation_subj[entity.root.head.head.head.head.i] if entity.root.head.head.head.head.pos_ == 'AUX' else entity.root.head.head.head.head.i,
+                        'subject': relation_subj[entity.root.head.head.head.head.i] if (entity.root.head.head.head.head.pos_ == 'AUX' and entity.root.head.head.head.head.i in relation_subj) else entity.root.head.head.head.head.i,
                         'object': entity.root.i,
                         'relation': doc[entity.root.head.head.head.i:entity.root.head.i + 1].text,
                         'lemma_relation': doc[entity.root.head.head.head.i:entity.root.head.i].lemma_
@@ -203,7 +203,7 @@ class SpacyParser(ParserBackend):
                         'lemma_relation': entity.root.head.head.lemma_ + ' ' + entity.root.head.lemma_
                     }
                 # E.g., A [piano] is next to a [woman].
-                elif entity.root.head.head.dep_ in ('amod', 'advmod', 'acomp') and entity.root.head.head.head.pos_ == 'AUX':
+                elif entity.root.head.head.dep_ in ('amod', 'advmod', 'acomp') and entity.root.head.head.head.pos_ == 'AUX' and entity.root.head.head.head.i in relation_subj:
                     relation = {
                         'subject': relation_subj[entity.root.head.head.head.i],
                         'object': entity.root.i,
